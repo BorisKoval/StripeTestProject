@@ -11,7 +11,7 @@
     <script src="https://js.stripe.com/v3/"></script>
     <script type="text/javascript">
 
-      var stripe = Stripe('pk_test_a9nwZVa5O7b0xz3lxl318KSU00x1L9ZWsF');
+      var stripe = Stripe('{{stripe_public_key}}');
       var buyButton = document.getElementById('buy-button');
 
       buyButton.addEventListener('click', function() {

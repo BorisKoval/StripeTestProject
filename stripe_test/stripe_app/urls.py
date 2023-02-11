@@ -9,5 +9,5 @@ urlpatterns = [
     path('buy/<int:item_id>', buy_item, name='buy_item'),
     path('item/<int:item_id>', display_item, name='display_item'),
     path('success/', success, name='success'),
-    path('cancel/', success, name='cancel'),
+    path('cancel/', cancel, name='cancel'),
 ]

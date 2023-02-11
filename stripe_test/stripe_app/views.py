@@ -2,6 +2,7 @@ import stripe
 from django.shortcuts import HttpResponse
 from django.shortcuts import render
 
+from django.conf import settings
 from .models import Item
 
 
@@ -22,7 +23,6 @@ def buy_item(request, item_id):
         line_items=[{
             'price': price.id,
             'quantity': 1,
-            # 'description': item.description,
         }],
         mode="payment",
         success_url=f"http://{request.META['HTTP_HOST']}/stripe/success/",
@@ -34,7 +34,10 @@ def buy_item(request, item_id):
 
 def display_item(request, item_id):
     item = Item.objects.get(id=item_id)
-    return render(request, 'item.html', {'item': item})
+    return render(
+        request, 'item.html',
+        {'item': item, 'stripe_public_key': settings.STRIPE_PUBLIC_API_KEY}
+    )
 
 
 def success(request):

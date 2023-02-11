@@ -39,8 +39,11 @@ CONF_FILES = [
 
 conf = ProjectConfig(filenames=CONF_FILES)
 
-# Ключ доступа к Stripe API
-stripe.api_key = conf.get('core', 'STRIPE_API_KEY')
+# Приватный ключ доступа к Stripe API
+stripe.api_key = conf.get('core', 'STRIPE_SECRET_API_KEY')
+
+# Публичный ключ доступа к Stripe API
+STRIPE_PUBLIC_API_KEY = conf.get('core', 'STRIPE_PUBLIC_API_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
