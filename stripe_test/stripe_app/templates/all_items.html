@@ -1,0 +1,12 @@
+<form action="{% url 'create_order' %}" method="post">
+    {% csrf_token %}
+    {% for item in items %}
+        <table>
+        <tr><td>
+            <input type="checkbox" name="item_ids" value="{{ item.id }}">{{ item.name }} - {{ item.price }}
+        </td></tr>
+        </table>
+
+    {% endfor %}
+    <button type="submit">Checkout</button>
+</form>

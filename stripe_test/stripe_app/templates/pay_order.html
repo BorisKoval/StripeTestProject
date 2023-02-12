@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pay for Order</title>
+  </head>
+  <body>
+    <h1>Pay for Order</h1>
+    <form>
+      <script
+        src="https://checkout.stripe.com/checkout.js"
+        class="stripe-button"
+        data-key="{{ stripe_public_key }}"
+        data-amount="{{ order.total_amount }}"
+        data-name="Pay for Order"
+        data-description="Order ID: {{ order.id }}"
+        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+        data-locale="auto"
+        data-zip-code="false"
+        data-currency="{{ order.currency }}">
+      </script>
+    </form>
+  </body>
+</html>
