@@ -15,5 +15,5 @@ urlpatterns = [
     path('cancel/', cancel, name='cancel'),
     path('all_items/', display_all_items, name='display_all_items'),
     path('pay/<int:order_id>/<str:session_id>/', pay_order, name='pay_order'),
-    path('create_order/<str:item_ids>', create_order, name="create_order"),
+    path('create_order', create_order, name="create_order"),
 ]

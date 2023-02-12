@@ -25,3 +25,9 @@
       python manage.py createsuperuser
       python manage.py collectstatic
       python manage.py runserver
+
+### Использование:
+
+    <address>/admin - Админка сайта
+    <address>/stripe/item/<item id> - Покупка Item
+    <address>/stripe/all_items - Покупка нескольких Item через Order

@@ -27,8 +27,8 @@ def buy_item(request, item_id):
             'quantity': 1,
         }],
         mode="payment",
-        success_url=f"http://{request.META['HTTP_HOST']}/stripe/success/",
-        cancel_url=f"http://{request.META['HTTP_HOST']}/stripe/cancel/",
+        success_url=request.build_absolute_uri(reverse("success")),
+        cancel_url=request.build_absolute_uri(reverse("cancel")),
     )
 
     return HttpResponse(session.id)
@@ -68,7 +68,8 @@ def pay_order(request, order_id, session_id):
     return render(request, "pay_order.html", context)
 
 
-def create_order(request, item_ids):
+def create_order(request):
+    item_ids = request.POST.getlist('item_ids')
     items = Item.objects.filter(id__in=item_ids)
     total_cost = sum([item.price for item in items])
     order = Order.objects.create(total_cost=total_cost)
@@ -79,7 +80,7 @@ def create_order(request, item_ids):
         line_items=[
             {
                 "price_data": {
-                    "currency": "usd",
+                    "currency": 'usd',
                     "product_data": {
                         "name": item.name,
                     },
@@ -90,10 +91,8 @@ def create_order(request, item_ids):
             for item in items
         ],
         mode="payment",
-        # success_url=request.build_absolute_uri(reverse("success")),
-        # cancel_url=request.build_absolute_uri(reverse("cancel")),
-        success_url=f"http://{request.META['HTTP_HOST']}/stripe/success/",
-        cancel_url=f"http://{request.META['HTTP_HOST']}/stripe/cancel/",
+        success_url=request.build_absolute_uri(reverse("success")),
+        cancel_url=request.build_absolute_uri(reverse("cancel")),
     )
 
-    return redirect(f"/pay/{order.id}/{session.id}")
+    return redirect(f"/stripe/pay/{order.id}/{session.id}")
